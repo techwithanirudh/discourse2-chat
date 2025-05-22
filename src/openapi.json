@@ -17311,7 +17311,10 @@
                           "available_flags": {
                             "type": "array",
                             "items": {
-                              "type": "string"
+                              "type": [
+                                "string",
+                                "null"
+                              ]
                             }
                           },
                           "uploads": {

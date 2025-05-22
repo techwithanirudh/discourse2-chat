@@ -7228,7 +7228,7 @@ export interface operations {
                                 username?: string;
                                 name?: string;
                             }[];
-                            available_flags?: string[];
+                            available_flags?: (string | null)[];
                             uploads?: Record<string, never>[];
                             edited?: boolean;
                             blocks?: Record<string, never>[];

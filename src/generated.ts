@@ -728,49 +728,42 @@ export default class DiscourseAPIGenerated {
   }
 
   /**
-   * Post a new message to a chat channel
+   * Send a message to a chat channel
    */
-  postMessage(params: Prettify<operations['postMessage']['parameters']['path']> & Prettify<NonNullable<operations['postMessage']['requestBody']>['content']['application/json']>): Promise<Prettify<operations['postMessage']['responses']['200']['content']['application/json']>> {
-    return this._exec<operations['postMessage']>('postMessage', params) as unknown as Promise<Prettify<operations['postMessage']['responses']['200']['content']['application/json']>>;
+  sendMessage(params: Prettify<operations['sendMessage']['parameters']['path']> & Prettify<NonNullable<operations['sendMessage']['requestBody']>['content']['application/x-www-form-urlencoded']>): Promise<Prettify<operations['sendMessage']['responses']['200']['content']['application/json']>> {
+    return this._exec<operations['sendMessage']>('sendMessage', params) as unknown as Promise<Prettify<operations['sendMessage']['responses']['200']['content']['application/json']>>;
   }
 
   /**
-   * Add or remove a reaction on a chat message
+   * Edit an existing message
    */
-  reactToMessage(params: Prettify<operations['reactToMessage']['parameters']['path']> & Prettify<NonNullable<operations['reactToMessage']['requestBody']>['content']['application/json']>): Promise<Prettify<operations['reactToMessage']['responses']['200']['content']['application/json']>> {
-    return this._exec<operations['reactToMessage']>('reactToMessage', params) as unknown as Promise<Prettify<operations['reactToMessage']['responses']['200']['content']['application/json']>>;
+  editMessage(params: Prettify<operations['editMessage']['parameters']['path']> & Prettify<NonNullable<operations['editMessage']['requestBody']>['content']['application/x-www-form-urlencoded']>): Promise<Prettify<operations['editMessage']['responses']['200']['content']['application/json']>> {
+    return this._exec<operations['editMessage']>('editMessage', params) as unknown as Promise<Prettify<operations['editMessage']['responses']['200']['content']['application/json']>>;
   }
 
   /**
-   * Edit an existing chat message
-   */
-  editMessage(params: Prettify<operations['editMessage']['parameters']['path']> & Prettify<NonNullable<operations['editMessage']['requestBody']>['content']['application/json']>): Promise<void> {
-    return this._exec<operations['editMessage']>('editMessage', params) as unknown as Promise<void>;
-  }
-
-  /**
-   * Get messages from a chat channel
+   * Fetch chat messages
    */
   getMessages(params: Prettify<operations['getMessages']['parameters']['path']> & Prettify<operations['getMessages']['parameters']['query']>): Promise<Prettify<operations['getMessages']['responses']['200']['content']['application/json']>> {
     return this._exec<operations['getMessages']>('getMessages', params) as unknown as Promise<Prettify<operations['getMessages']['responses']['200']['content']['application/json']>>;
   }
 
   /**
-   * Create or get a direct message channel
+   * React to a message
    */
-  getChatChannel(params: Prettify<NonNullable<operations['getChatChannel']['requestBody']>['content']['application/json']>): Promise<Prettify<operations['getChatChannel']['responses']['200']['content']['application/json']>> {
-    return this._exec<operations['getChatChannel']>('getChatChannel', params) as unknown as Promise<Prettify<operations['getChatChannel']['responses']['200']['content']['application/json']>>;
+  reactToMessage(params: Prettify<operations['reactToMessage']['parameters']['path']> & Prettify<NonNullable<operations['reactToMessage']['requestBody']>['content']['application/x-www-form-urlencoded']>): Promise<Prettify<operations['reactToMessage']['responses']['200']['content']['application/json']>> {
+    return this._exec<operations['reactToMessage']>('reactToMessage', params) as unknown as Promise<Prettify<operations['reactToMessage']['responses']['200']['content']['application/json']>>;
   }
 
   /**
-   * Get user-card info
+   * Fetch a user card
    */
-  getUserInfo(params: Prettify<operations['getUserInfo']['parameters']['path']>): Promise<Prettify<operations['getUserInfo']['responses']['200']['content']['application/json']>> {
-    return this._exec<operations['getUserInfo']>('getUserInfo', params) as unknown as Promise<Prettify<operations['getUserInfo']['responses']['200']['content']['application/json']>>;
+  getUserCard(params: Prettify<operations['getUserCard']['parameters']['path']>): Promise<Prettify<operations['getUserCard']['responses']['200']['content']['application/json']>> {
+    return this._exec<operations['getUserCard']>('getUserCard', params) as unknown as Promise<Prettify<operations['getUserCard']['responses']['200']['content']['application/json']>>;
   }
 
   /**
-   * Get current session information
+   * Get current session info
    */
   getSession(): Promise<Prettify<operations['getSession']['responses']['200']['content']['application/json']>> {
     return this._exec<operations['getSession']>('getSession') as unknown as Promise<Prettify<operations['getSession']['responses']['200']['content']['application/json']>>;

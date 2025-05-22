@@ -1397,25 +1397,8 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Post a new message to a chat channel */
-        post: operations["postMessage"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/chat/{channel_id}/react/{message_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        /** Add or remove a reaction on a chat message */
-        put: operations["reactToMessage"];
-        post?: never;
+        /** Send a message to a chat channel */
+        post: operations["sendMessage"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1430,7 +1413,7 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        /** Edit an existing chat message */
+        /** Edit an existing message */
         put: operations["editMessage"];
         post?: never;
         delete?: never;
@@ -1446,7 +1429,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Get messages from a chat channel */
+        /** Fetch chat messages */
         get: operations["getMessages"];
         put?: never;
         post?: never;
@@ -1456,7 +1439,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/chat/api/direct-message-channels.json": {
+    "/chat/{channel_id}/react/{message_id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1464,9 +1447,9 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        put?: never;
-        /** Create or get a direct message channel */
-        post: operations["getChatChannel"];
+        /** React to a message */
+        put: operations["reactToMessage"];
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -1480,8 +1463,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Get user-card info */
-        get: operations["getUserInfo"];
+        /** Fetch a user card */
+        get: operations["getUserCard"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1497,7 +1480,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Get current session information */
+        /** Get current session info */
         get: operations["getSession"];
         put?: never;
         post?: never;
@@ -7136,230 +7119,90 @@ export interface operations {
             };
         };
     };
-    postMessage: {
+    sendMessage: {
         parameters: {
             query?: never;
-            header?: {
-                /** @description Referer URL (e.g. https://<base>/chat/c/{channel_name}/{channel_id}) */
-                Referer?: string;
-            };
+            header?: never;
             path: {
-                /** @description The ID of the chat channel. */
                 channel_id: number;
             };
             cookie?: never;
         };
         requestBody: {
             content: {
-                "application/json": {
-                    /** @description The content of the message. */
+                "application/x-www-form-urlencoded": {
+                    /** @example this spam to helpp me understand the response data */
                     message: string;
+                    /** @example 0886e40a-b729-4d8a-af93-925df316fe67 */
+                    staged_id?: string | null;
                 };
             };
         };
         responses: {
-            /** @description Posted message response */
+            /** @description Message sent successfully */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
                     "application/json": {
-                        id?: number;
-                        cooked?: string;
-                        raw?: string;
-                        /** @example [
-                         *       "You posted an identical message too recently."
-                         *     ] */
-                        errors?: string[];
+                        /** @example OK */
+                        success?: string;
+                        /** @example 4041 */
+                        message_id?: number;
                     };
                 };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Too Many Requests */
-            429: {
-                headers: {
-                    "Retry-After"?: number;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    reactToMessage: {
-        parameters: {
-            query?: never;
-            header?: {
-                /** @description Referer URL */
-                Referer?: string;
-            };
-            path: {
-                /** @description Chat channel ID. */
-                channel_id: number;
-                /** @description Chat message ID. */
-                message_id: number;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": {
-                    /**
-                     * @description Reaction action.
-                     * @enum {string}
-                     */
-                    react_action: "add" | "remove";
-                    /** @description The emoji to react with (e.g. :smile:). */
-                    emoji: string;
-                };
-            };
-        };
-        responses: {
-            /** @description Reaction result */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @enum {string} */
-                        success?: "OK";
-                    };
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Too Many Requests */
-            429: {
-                headers: {
-                    "Retry-After"?: number;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
         };
     };
     editMessage: {
         parameters: {
             query?: never;
-            header?: {
-                /** @description Referer URL */
-                Referer?: string;
-            };
+            header?: never;
             path: {
-                /** @description Chat channel ID */
                 channel_id: number;
-                /** @description Message ID */
                 message_id: number;
             };
             cookie?: never;
         };
         requestBody: {
             content: {
-                "application/json": {
-                    /** @description New message content. */
+                "application/x-www-form-urlencoded": {
+                    /** @example a plain thif */
                     message: string;
                 };
             };
         };
         responses: {
-            /** @description Edited message response */
+            /** @description Message updated */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
+                content: {
+                    "application/json": {
+                        success?: string;
+                        message_id?: number;
+                    };
                 };
-                content?: never;
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
         };
     };
     getMessages: {
         parameters: {
             query?: {
-                /** @description Start from last-read */
                 fetch_from_last_read?: boolean;
-                /** @description Number of messages */
                 page_size?: number;
             };
-            header?: {
-                /** @description Referer URL */
-                Referer?: string;
-            };
+            header?: never;
             path: {
-                /** @description Chat channel ID */
                 channel_id: number;
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description List of chat messages */
+            /** @description A page of messages with tracking info */
             200: {
                 headers: {
                     [name: string]: unknown;
@@ -7369,162 +7212,89 @@ export interface operations {
                         messages?: {
                             id?: number;
                             message?: string;
+                            cooked?: string;
                             /** Format: date-time */
                             created_at?: string;
+                            chat_channel_id?: number;
+                            streaming?: boolean;
                             user?: {
+                                id?: number;
                                 username?: string;
+                                name?: string;
+                                avatar_template?: string;
+                                moderator?: boolean;
+                                admin?: boolean;
+                                staff?: boolean;
                             };
+                            mentioned_users?: {
+                                id?: number;
+                                username?: string;
+                                name?: string;
+                            }[];
+                            available_flags?: string[];
+                            uploads?: Record<string, never>[];
+                            edited?: boolean;
                         }[];
+                        tracking?: Record<string, never>;
+                        meta?: Record<string, never>;
                     };
                 };
             };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Too Many Requests */
-            429: {
-                headers: {
-                    "Retry-After"?: number;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
-    getChatChannel: {
+    reactToMessage: {
         parameters: {
             query?: never;
-            header?: {
-                /** @description Referer URL */
-                Referer?: string;
+            header?: never;
+            path: {
+                channel_id: number;
+                message_id: number;
             };
-            path?: never;
             cookie?: never;
         };
         requestBody: {
             content: {
-                "application/json": {
-                    /** @description Username of the other user */
-                    "target_usernames[]": string;
+                "application/x-www-form-urlencoded": {
+                    /** @example add */
+                    react_action: string;
+                    /** @example heart */
+                    emoji: string;
                 };
             };
         };
         responses: {
-            /** @description DM channel info */
+            /** @description Reaction added/removed */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
                     "application/json": {
-                        channel?: {
-                            id?: number;
-                            chatable?: {
-                                users?: {
-                                    id?: number;
-                                    username?: string;
-                                    name?: string | null;
-                                    avatar_template?: string;
-                                    admin?: boolean;
-                                    moderator?: boolean;
-                                }[];
-                            };
-                        };
+                        success?: string;
                     };
                 };
             };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Too Many Requests */
-            429: {
-                headers: {
-                    "Retry-After"?: number;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
-    getUserInfo: {
+    getUserCard: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description Discourse username */
                 username: string;
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description User card info */
+            /** @description Full user card with badges and metadata */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        user?: {
-                            id?: number;
-                            username?: string;
-                            name?: string | null;
-                            avatar_template?: string;
-                            admin?: boolean;
-                            moderator?: boolean;
-                        };
-                    };
+                    "application/json": Record<string, never>;
                 };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
         };
     };
@@ -7537,7 +7307,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description Current session info */
+            /** @description Authenticated user session data */
             200: {
                 headers: {
                     [name: string]: unknown;
@@ -7545,51 +7315,15 @@ export interface operations {
                 content: {
                     "application/json": {
                         current_user: {
-                            /** @example 1 */
                             id: number;
-                            /** @example anirudh */
                             username: string;
-                            /** @example Anirudh Sriram */
                             name?: string | null;
-                            /** @example /user_avatar/discourse.example.com/anirudh/{size}/2_2.png */
                             avatar_template: string;
-                            /** @example true */
                             admin: boolean;
-                            /** @example false */
                             moderator: boolean;
                         };
                     };
                 };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Forbidden – invalid API key or insufficient permissions */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Too Many Requests */
-            429: {
-                headers: {
-                    /** @description Seconds until you can retry */
-                    "Retry-After"?: number;
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
         };
     };

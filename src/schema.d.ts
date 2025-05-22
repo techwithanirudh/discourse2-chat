@@ -7128,12 +7128,11 @@ export interface operations {
             };
             cookie?: never;
         };
-        requestBody: {
+        requestBody?: {
             content: {
                 "application/x-www-form-urlencoded": {
-                    /** @example this spam to helpp me understand the response data */
-                    message: string;
-                    /** @example 0886e40a-b729-4d8a-af93-925df316fe67 */
+                    /** @example hello world */
+                    message?: string;
                     staged_id?: string | null;
                 };
             };
@@ -7146,9 +7145,7 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example OK */
                         success?: string;
-                        /** @example 4041 */
                         message_id?: number;
                     };
                 };
@@ -7165,11 +7162,11 @@ export interface operations {
             };
             cookie?: never;
         };
-        requestBody: {
+        requestBody?: {
             content: {
                 "application/x-www-form-urlencoded": {
-                    /** @example a plain thif */
-                    message: string;
+                    /** @example updated text */
+                    message?: string;
                 };
             };
         };
@@ -7202,7 +7199,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description A page of messages with tracking info */
+            /** @description A page of messages */
             200: {
                 headers: {
                     [name: string]: unknown;
@@ -7234,9 +7231,11 @@ export interface operations {
                             available_flags?: string[];
                             uploads?: Record<string, never>[];
                             edited?: boolean;
+                            blocks?: Record<string, never>[];
+                            chat_webhook_event?: Record<string, never> | null;
                         }[];
-                        tracking?: Record<string, never>;
-                        meta?: Record<string, never>;
+                        tracking?: Record<string, never> | null;
+                        meta?: Record<string, never> | null;
                     };
                 };
             };
@@ -7252,13 +7251,13 @@ export interface operations {
             };
             cookie?: never;
         };
-        requestBody: {
+        requestBody?: {
             content: {
                 "application/x-www-form-urlencoded": {
                     /** @example add */
-                    react_action: string;
+                    react_action?: string;
                     /** @example heart */
-                    emoji: string;
+                    emoji?: string;
                 };
             };
         };
@@ -7287,7 +7286,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description Full user card with badges and metadata */
+            /** @description User card with badges & metadata */
             200: {
                 headers: {
                     [name: string]: unknown;
@@ -7314,13 +7313,13 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        current_user: {
-                            id: number;
-                            username: string;
+                        current_user?: {
+                            id?: number;
+                            username?: string;
                             name?: string | null;
-                            avatar_template: string;
-                            admin: boolean;
-                            moderator: boolean;
+                            avatar_template?: string;
+                            admin?: boolean;
+                            moderator?: boolean;
                         };
                     };
                 };

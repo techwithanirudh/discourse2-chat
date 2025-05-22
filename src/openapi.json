@@ -17095,7 +17095,6 @@
           }
         ],
         "requestBody": {
-          "required": true,
           "content": {
             "application/x-www-form-urlencoded": {
               "schema": {
@@ -17103,17 +17102,13 @@
                 "properties": {
                   "message": {
                     "type": "string",
-                    "example": "this spam to helpp me understand the response data"
+                    "example": "hello world"
                   },
                   "staged_id": {
                     "type": "string",
-                    "nullable": true,
-                    "example": "0886e40a-b729-4d8a-af93-925df316fe67"
+                    "nullable": true
                   }
-                },
-                "required": [
-                  "message"
-                ]
+                }
               }
             }
           }
@@ -17127,18 +17122,12 @@
                   "type": "object",
                   "properties": {
                     "success": {
-                      "type": "string",
-                      "example": "OK"
+                      "type": "string"
                     },
                     "message_id": {
-                      "type": "integer",
-                      "example": 4041
+                      "type": "integer"
                     }
                   }
-                },
-                "example": {
-                  "success": "OK",
-                  "message_id": 4041
                 }
               }
             }
@@ -17174,7 +17163,6 @@
           }
         ],
         "requestBody": {
-          "required": true,
           "content": {
             "application/x-www-form-urlencoded": {
               "schema": {
@@ -17182,12 +17170,9 @@
                 "properties": {
                   "message": {
                     "type": "string",
-                    "example": "a plain thif"
+                    "example": "updated text"
                   }
-                },
-                "required": [
-                  "message"
-                ]
+                }
               }
             }
           }
@@ -17207,10 +17192,6 @@
                       "type": "integer"
                     }
                   }
-                },
-                "example": {
-                  "success": "OK",
-                  "message_id": 4050
                 }
               }
             }
@@ -17254,7 +17235,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A page of messages with tracking info",
+            "description": "A page of messages",
             "content": {
               "application/json": {
                 "schema": {
@@ -17341,58 +17322,34 @@
                           },
                           "edited": {
                             "type": "boolean"
+                          },
+                          "blocks": {
+                            "type": "array",
+                            "items": {
+                              "type": "object"
+                            }
+                          },
+                          "chat_webhook_event": {
+                            "type": [
+                              "object",
+                              "null"
+                            ]
                           }
                         }
                       }
                     },
                     "tracking": {
-                      "type": "object"
+                      "type": [
+                        "object",
+                        "null"
+                      ]
                     },
                     "meta": {
-                      "type": "object"
+                      "type": [
+                        "object",
+                        "null"
+                      ]
                     }
-                  }
-                },
-                "example": {
-                  "messages": [
-                    {
-                      "id": 4027,
-                      "message": "@twa why dont you have nitro",
-                      "cooked": "<p><a class=\"mention\" href=\"/u/twa\">@twa</a> why dont you have nitro</p>",
-                      "created_at": "2025-05-22T16:06:07Z",
-                      "chat_channel_id": 23,
-                      "streaming": false,
-                      "user": {
-                        "id": 16,
-                        "username": "winter",
-                        "name": "Ice",
-                        "avatar_template": "/user_avatar/community.techwithanirudh.com/winter/{size}/64_2.png",
-                        "moderator": true,
-                        "admin": false,
-                        "staff": true
-                      },
-                      "mentioned_users": [
-                        {
-                          "id": 1,
-                          "username": "twa",
-                          "name": "Anirudh Sriram"
-                        }
-                      ],
-                      "available_flags": [
-                        "notify_user",
-                        "off_topic",
-                        "spam"
-                      ],
-                      "uploads": []
-                    }
-                  ],
-                  "tracking": {
-                    "channel_tracking": {},
-                    "thread_tracking": {}
-                  },
-                  "meta": {
-                    "can_load_more_past": true,
-                    "can_load_more_future": false
                   }
                 }
               }
@@ -17429,7 +17386,6 @@
           }
         ],
         "requestBody": {
-          "required": true,
           "content": {
             "application/x-www-form-urlencoded": {
               "schema": {
@@ -17443,11 +17399,7 @@
                     "type": "string",
                     "example": "heart"
                   }
-                },
-                "required": [
-                  "react_action",
-                  "emoji"
-                ]
+                }
               }
             }
           }
@@ -17464,9 +17416,6 @@
                       "type": "string"
                     }
                   }
-                },
-                "example": {
-                  "success": "OK"
                 }
               }
             }
@@ -17494,51 +17443,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Full user card with badges and metadata",
+            "description": "User card with badges & metadata",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object"
-                },
-                "example": {
-                  "user_badges": [
-                    {
-                      "id": 50,
-                      "granted_at": "2025-05-06T18:10:58.099Z",
-                      "count": 1,
-                      "badge_id": 4
-                    }
-                  ],
-                  "badges": [
-                    {
-                      "id": 4,
-                      "name": "Leader",
-                      "description": "Global edit...",
-                      "slug": "leader"
-                    }
-                  ],
-                  "badge_types": [
-                    {
-                      "id": 1,
-                      "name": "Gold",
-                      "sort_order": 9
-                    }
-                  ],
-                  "users": [
-                    {
-                      "id": 16,
-                      "username": "winter",
-                      "name": "Ice",
-                      "trust_level": 4
-                    }
-                  ],
-                  "user": {
-                    "id": 16,
-                    "username": "winter",
-                    "name": "Ice",
-                    "flair_name": "CCC",
-                    "trust_level": 4
-                  }
                 }
               }
             }
@@ -17571,8 +17480,10 @@
                           "type": "string"
                         },
                         "name": {
-                          "type": "string",
-                          "nullable": true
+                          "type": [
+                            "string",
+                            "null"
+                          ]
                         },
                         "avatar_template": {
                           "type": "string"
@@ -17583,28 +17494,8 @@
                         "moderator": {
                           "type": "boolean"
                         }
-                      },
-                      "required": [
-                        "id",
-                        "username",
-                        "avatar_template",
-                        "admin",
-                        "moderator"
-                      ]
+                      }
                     }
-                  },
-                  "required": [
-                    "current_user"
-                  ]
-                },
-                "example": {
-                  "current_user": {
-                    "id": 1,
-                    "username": "twa",
-                    "name": "Anirudh Sriram",
-                    "avatar_template": "/user_avatar/community.techwithanirudh.com/twa/{size}/70_2.png",
-                    "admin": true,
-                    "moderator": true
                   }
                 }
               }
@@ -17625,6 +17516,13 @@
     }
   ],
   "components": {
-    "schemas": {}
+    "schemas": {},
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Api-Key"
+      }
+    }
   }
 }

@@ -18,22 +18,26 @@ await build({
 
   package: {
     // package.json properties
-    name: "discourse2",
+    name: "discourse2-chat",
     version: Deno.args[0],
-    description: "The complete Discourse API, fully typed.",
+    description: "Type-safe Discourse API client with Chat endpoints baked in",
     license: "MIT",
     "keywords": [
       "discourse",
     ],
-    "author": "Gadi Cohen <dragon@wastelands.net>",
+    "author": "Anirudh Sriram <hello@techwithanirudh.com>",
+    "contributors": [
+      "Anirudh Sriram <hello@techwithanirudh.com>",
+      "Gadi Cohen <dragon@wastelands.net>"
+    ],
     repository: {
       type: "git",
-      url: "git+https://github.com/gadicc/discourse2.git",
+      url: "git+https://github.com/techwithanirudh/discourse2-chat.git",
     },
     bugs: {
-      url: "https://github.com/gadicc/discourse2/issues",
+      url: "https://github.com/techwithanirudh/discourse2-chat/issues",
     },
-    "homepage": "https://github.com/gadicc/discourse2#readme",
+    "homepage": "https://github.com/techwithanirudh/discourse2-chat#readme",
     devDependencies: {
       "@types/debug": "^4.1.12",
     },

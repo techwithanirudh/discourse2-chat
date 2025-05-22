@@ -1,47 +1,54 @@
-# discourse2
+# Discourse2 Chat
 
-The complete Discourse API (strongly typed), always up-to-date.
+Type-safe **Discourse API client** with the Chat plugin endpoints baked in.
 
-Copyright (c) 2023 by Gadi Cohen. [MIT Licensed](./LICENSE.txt).
-
-[![NPM Version](https://img.shields.io/npm/v/discourse2?logo=npm)](https://www.npmjs.com/package/discourse2)
-[![JSR](https://jsr.io/badges/@gadicc/discourse2)](https://jsr.io/@gadicc/discourse2)
-[![JSR Score](https://jsr.io/badges/@gadicc/discourse2/score)](https://jsr.io/@gadicc/discourse2)
-![DiscourseAPI Retrieval Date](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fgadicc%2Fdiscourse2%2Frefs%2Fheads%2Fmain%2Fsrc%2Fopenapi-meta.json&query=%24.retrievedAtDate&label=Discourse%20API)
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/gadicc/discourse2/release.yml)
-![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/gadicc/db6d371d39faab64858178a049c8e80b/raw/discourse2-lcov-coverage.json)
+[![NPM Version](https://img.shields.io/npm/v/discourse2-chat?logo=npm)](https://www.npmjs.com/package/discourse2-chat)
+![DiscourseAPI Retrieval Date](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Ftechwithanirudh%2Fdiscourse2-chat%2Frefs%2Fheads%2Fmain%2Fsrc%2Fopenapi-meta.json&query=%24.retrievedAtDate&label=Discourse%20API)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/techwithanirudh/discourse2-chat/release.yml)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
+> A slim fork of `discourse2` that auto-merges the core OpenAPI spec **plus** a local `openapi/chat.json`, giving you fully-typed helpers such as `createChatMessage`, `reactToChatMessage`, etc.
+
 <img src="./assets/discourse-completion.png" alt="discourse completion" width="700"/>
 <img src="./assets/discourse-getTopic-type.png" alt="discourse getTopic type" width="500"/>
 
-[Live Demo on CodeSandbox](https://codesandbox.io/p/sandbox/discourse2-dht4ym).
+---
 
-## Features
+## Why this fork?
 
-- The _entire_ Discourse API (that’s published in the OpenAPI spec).
-- _Always up-to-date_: the OpenAPI spec is checked for changes daily, and the
-  package will automatically rebuild and publish itself on changes. The most
-  recent retrieval is shown as a badge at the top of the README:
-  ![DiscourseAPI Retrieval Date](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fgadicc%2Fdiscourse2%2Frefs%2Fheads%2Fmain%2Fsrc%2Fopenapi-meta.json&query=%24.retrievedAtDate&label=Discourse%20API)
-- Works in both server and browser* environments (*useful for querying public
-  data _without_ API keys and on relevant origin, e.g. latest topics, etc)
+* **Chat endpoints included** – `/chat/**`, DM channels, reactions… everything your bot needs.
+* **Strong types everywhere** – generated from a merged OpenAPI spec (core + chat).
+* **Auto-update pipeline** – GitHub Action fetches the latest core spec daily, rebuilds, tests and publishes if anything changed.
+* **Zero run-time deps** – the generated client is a thin `fetch` wrapper; works in Node 18+, Deno, Bun, and modern browsers.*
+
+\* Public endpoints only in browsers, unless the forum sets permissive CORS.
+
+---
 
 ## Quick Start
 
 ```ts
-import Discourse from "discourse2";
+import Discourse from "discourse2-chat";
 
-const discourse = new Discourse("https://forums.kiri.art", {
+const api = new Discourse("https://meta.discourse.org", {
   "Api-Key": process.env.DISCOURSE_API_KEY,
   "Api-Username": process.env.DISCOURSE_API_USERNAME,
 });
 
-const result = await discourse.listLatestTopics();
-console.log(result);
-```
+// send a chat message
+await api.postMessage({ channel_id: 42, message: "Hello from the SDK 🤖" });
+
+// list last 50 messages
+const { messages } = await api.getMessages({
+    channel_id: 2,
+    fetch_from_last_read: true,
+    page_size: 50
+})
+````
+
+---
 
 ## APIs
 
@@ -94,6 +101,12 @@ following APIs were supported: (link is to official docs, in same order).
   [postReplies](https://docs.discourse.org/#tag/Posts/operation/postReplies),
   [lockPost](https://docs.discourse.org/#tag/Posts/operation/lockPost),
   [performPostAction](https://docs.discourse.org/#tag/Posts/operation/performPostAction).
+- **Chat**:
+  [createChatMessage](/chat/%7Bchannel_id%7D),
+  [listChatMessages](/chat/api/channels/%7Bchannel_id%7D/messages),
+  [editChatMessage](/chat/api/channels/%7Bchannel_id%7D/messages/%7Bmessage_id%7D),
+  [reactToChatMessage](/chat/%7Bchannel_id%7D/react/%7Bmessage_id%7D),
+  [getOrCreateDmChannel](/chat/api/direct-message-channels.json).
 - **Topics**:
   [getSpecificPostsFromTopic](https://docs.discourse.org/#tag/Topics/operation/getSpecificPostsFromTopic),
   [getTopic](https://docs.discourse.org/#tag/Topics/operation/getTopic),
@@ -187,10 +200,5 @@ following APIs were supported: (link is to official docs, in same order).
 1. **`createUpload()`** has been modified to accept `{ file?: Blob | File }`, vs
    the original spec of `{ file: { type: "string", format: "binary }}`.
 
-## TODO
-
-- [x] Validation (params; re response, see note above)
-
 ## Development
-
 See [CONTRIBUTING.md](./CONTRIBUTING.md).

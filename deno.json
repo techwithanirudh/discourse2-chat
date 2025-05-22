@@ -1,6 +1,6 @@
 {
-  "name": "@gadicc/discourse2",
-  "version": "0.0.1",
+  "name": "@techwithanirudh/discourse2-chat",
+  "version": "0.0.2",
   "exports": {
     ".": "./src/index.ts"
   },

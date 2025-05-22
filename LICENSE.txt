@@ -1,5 +1,6 @@
 MIT License
 
+Copyright (c) 2025 Anirudh Sriram <hello@techwithanirudh.com>
 Copyright (c) 2023 Gadi Cohen <dragon@wastelands.net>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

@@ -17637,6 +17637,82 @@
           }
         }
       }
+    },
+    "/session": {
+      "get": {
+        "summary": "Get current session information",
+        "operationId": "getSession",
+        "tags": [
+          "Session"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Current session info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "avatar_template": {
+                          "type": "string"
+                        },
+                        "admin": {
+                          "type": "boolean"
+                        },
+                        "moderator": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "session_key": {
+                      "type": "string",
+                      "description": "Opaque session key."
+                    },
+                    "expires_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Session expiration timestamp."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "servers": [

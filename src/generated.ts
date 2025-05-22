@@ -769,4 +769,11 @@ export default class DiscourseAPIGenerated {
     return this._exec<operations['getUserInfo']>('getUserInfo', params) as unknown as Promise<Prettify<operations['getUserInfo']['responses']['200']['content']['application/json']>>;
   }
 
+  /**
+   * Get current session information
+   */
+  getSession(): Promise<Prettify<operations['getSession']['responses']['200']['content']['application/json']>> {
+    return this._exec<operations['getSession']>('getSession') as unknown as Promise<Prettify<operations['getSession']['responses']['200']['content']['application/json']>>;
+  }
+
 }

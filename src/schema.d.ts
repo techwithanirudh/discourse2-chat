@@ -1490,7 +1490,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/session": {
+    "/session/current.json": {
         parameters: {
             query?: never;
             header?: never;
@@ -7544,13 +7544,19 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        current_user?: {
-                            id?: number;
-                            username?: string;
+                        current_user: {
+                            /** @example 1 */
+                            id: number;
+                            /** @example anirudh */
+                            username: string;
+                            /** @example Anirudh Sriram */
                             name?: string | null;
-                            avatar_template?: string;
-                            admin?: boolean;
-                            moderator?: boolean;
+                            /** @example /user_avatar/discourse.example.com/anirudh/{size}/2_2.png */
+                            avatar_template: string;
+                            /** @example true */
+                            admin: boolean;
+                            /** @example false */
+                            moderator: boolean;
                         };
                     };
                 };
@@ -7562,7 +7568,7 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description Forbidden */
+            /** @description Forbidden – invalid API key or insufficient permissions */
             403: {
                 headers: {
                     [name: string]: unknown;
@@ -7572,6 +7578,7 @@ export interface operations {
             /** @description Too Many Requests */
             429: {
                 headers: {
+                    /** @description Seconds until you can retry */
                     "Retry-After"?: number;
                     [name: string]: unknown;
                 };

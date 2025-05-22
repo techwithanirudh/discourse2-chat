@@ -17638,14 +17638,13 @@
         }
       }
     },
-    "/session": {
+    "/session/current.json": {
       "get": {
         "summary": "Get current session information",
         "operationId": "getSession",
         "tags": [
           "Session"
         ],
-        "parameters": [],
         "responses": {
           "200": {
             "description": "Current session info",
@@ -17653,31 +17652,57 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "current_user"
+                  ],
                   "properties": {
                     "current_user": {
                       "type": "object",
+                      "required": [
+                        "id",
+                        "username",
+                        "avatar_template",
+                        "admin",
+                        "moderator"
+                      ],
                       "properties": {
                         "id": {
-                          "type": "integer"
+                          "type": "integer",
+                          "example": 1
                         },
                         "username": {
-                          "type": "string"
+                          "type": "string",
+                          "example": "anirudh"
                         },
                         "name": {
                           "type": "string",
-                          "nullable": true
+                          "nullable": true,
+                          "example": "Anirudh Sriram"
                         },
                         "avatar_template": {
-                          "type": "string"
+                          "type": "string",
+                          "example": "/user_avatar/discourse.example.com/anirudh/{size}/2_2.png"
                         },
                         "admin": {
-                          "type": "boolean"
+                          "type": "boolean",
+                          "example": true
                         },
                         "moderator": {
-                          "type": "boolean"
+                          "type": "boolean",
+                          "example": false
                         }
                       }
                     }
+                  }
+                },
+                "example": {
+                  "current_user": {
+                    "id": 1,
+                    "username": "anirudh",
+                    "name": "Anirudh Sriram",
+                    "avatar_template": "/user_avatar/discourse.example.com/anirudh/120/2_2.png",
+                    "admin": true,
+                    "moderator": false
                   }
                 }
               }
@@ -17687,14 +17712,16 @@
             "description": "Bad Request"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden – invalid API key or insufficient permissions"
           },
           "429": {
             "description": "Too Many Requests",
             "headers": {
               "Retry-After": {
+                "description": "Seconds until you can retry",
                 "schema": {
-                  "type": "integer"
+                  "type": "integer",
+                  "example": 30
                 }
               }
             }

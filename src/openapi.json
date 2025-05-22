@@ -17654,7 +17654,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "user": {
+                    "current_user": {
                       "type": "object",
                       "properties": {
                         "id": {
@@ -17677,15 +17677,6 @@
                           "type": "boolean"
                         }
                       }
-                    },
-                    "session_key": {
-                      "type": "string",
-                      "description": "Opaque session key."
-                    },
-                    "expires_at": {
-                      "type": "string",
-                      "format": "date-time",
-                      "description": "Session expiration timestamp."
                     }
                   }
                 }

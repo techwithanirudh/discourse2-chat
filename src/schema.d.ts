@@ -7544,7 +7544,7 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        user?: {
+                        current_user?: {
                             id?: number;
                             username?: string;
                             name?: string | null;
@@ -7552,13 +7552,6 @@ export interface operations {
                             admin?: boolean;
                             moderator?: boolean;
                         };
-                        /** @description Opaque session key. */
-                        session_key?: string;
-                        /**
-                         * Format: date-time
-                         * @description Session expiration timestamp.
-                         */
-                        expires_at?: string;
                     };
                 };
             };

@@ -17235,10 +17235,10 @@
           {
             "name": "target_message_id",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "integer",
-              "example": 23
+              "example": 1234
             }
           }
         ],

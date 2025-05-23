@@ -7204,10 +7204,10 @@ export interface operations {
     };
     getMessages: {
         parameters: {
-            query: {
+            query?: {
                 fetch_from_last_read?: boolean;
                 page_size?: number;
-                target_message_id: number;
+                target_message_id?: number;
             };
             header?: never;
             path: {

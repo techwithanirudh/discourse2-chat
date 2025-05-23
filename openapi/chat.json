@@ -26,7 +26,15 @@
                 "type": "object",
                 "properties": {
                   "message": { "type": "string", "example": "hello world" },
-                  "staged_id": { "type": "string", "nullable": true }
+                  "staged_id": { "type": "string", "nullable": true },
+                  "in_reply_to_id": {
+                    "type": "integer",
+                    "nullable": true
+                  },
+                  "thread_id": {
+                    "type": "integer",
+                    "nullable": true
+                  }
                 }
               }
             }

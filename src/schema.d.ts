@@ -1405,6 +1405,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/chat/api/channels/{channel_id}/threads/{thread_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get thread details */
+        get: operations["getThread"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/chat/api/channels/{channel_id}/messages/{message_id}": {
         parameters: {
             query?: never;
@@ -1439,6 +1456,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/chat/api/channels/{channel_id}/threads/{thread_id}/messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Fetch thread messages */
+        get: operations["getThreadMessages"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/chat/{channel_id}/react/{message_id}": {
         parameters: {
             query?: never;
@@ -1449,23 +1483,6 @@ export interface paths {
         get?: never;
         /** React to a message */
         put: operations["reactToMessage"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/chat/api/channels/{channel_id}/threads/{thread_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get thread details */
-        get: operations["getThread"];
-        put?: never;
         post?: never;
         delete?: never;
         options?: never;
@@ -7171,6 +7188,55 @@ export interface operations {
             };
         };
     };
+    getThread: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                channel_id: number;
+                thread_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Thread info */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        thread?: {
+                            id?: number | null;
+                            title?: string | null;
+                            status?: string | null;
+                            channel_id?: number | null;
+                            meta?: {
+                                [key: string]: unknown;
+                            };
+                            reply_count?: number | null;
+                            current_user_membership?: {
+                                [key: string]: unknown;
+                            };
+                            preview?: {
+                                [key: string]: unknown;
+                            };
+                            last_message_id?: number | null;
+                            force?: boolean | null;
+                            original_message?: {
+                                [key: string]: unknown;
+                            };
+                        } & {
+                            [key: string]: unknown;
+                        };
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
     editMessage: {
         parameters: {
             query?: never;
@@ -7261,6 +7327,61 @@ export interface operations {
             };
         };
     };
+    getThreadMessages: {
+        parameters: {
+            query?: {
+                /** @description Start fetching from this message ID */
+                target_message_id?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path: {
+                channel_id: number;
+                thread_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A page of messages in the thread */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        messages?: ({
+                            id?: number | null;
+                            message?: string | null;
+                            cooked?: string | null;
+                            /** Format: date-time */
+                            created_at?: string | null;
+                            thread_id?: number | null;
+                            chat_channel_id?: number | null;
+                            user?: {
+                                [key: string]: unknown;
+                            };
+                            available_flags?: (string | null)[];
+                        } & {
+                            [key: string]: unknown;
+                        })[];
+                        tracking?: {
+                            [key: string]: unknown;
+                        } | null;
+                        meta?: {
+                            target_message_id?: number | null;
+                            can_load_more_future?: boolean | null;
+                            can_load_more_past?: boolean | null;
+                        } & {
+                            [key: string]: unknown;
+                        };
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
     reactToMessage: {
         parameters: {
             query?: never;
@@ -7290,55 +7411,6 @@ export interface operations {
                 content: {
                     "application/json": {
                         success?: string;
-                    };
-                };
-            };
-        };
-    };
-    getThread: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                channel_id: number;
-                thread_id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Thread info */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        thread?: {
-                            id?: number | null;
-                            title?: string | null;
-                            status?: string | null;
-                            channel_id?: number | null;
-                            meta?: {
-                                [key: string]: unknown;
-                            };
-                            reply_count?: number | null;
-                            current_user_membership?: {
-                                [key: string]: unknown;
-                            };
-                            preview?: {
-                                [key: string]: unknown;
-                            };
-                            last_message_id?: number | null;
-                            force?: boolean | null;
-                            original_message?: {
-                                [key: string]: unknown;
-                            };
-                        } & {
-                            [key: string]: unknown;
-                        };
-                    } & {
-                        [key: string]: unknown;
                     };
                 };
             };

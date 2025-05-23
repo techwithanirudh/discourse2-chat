@@ -735,6 +735,13 @@ export default class DiscourseAPIGenerated {
   }
 
   /**
+   * Get thread details
+   */
+  getThread(params: Prettify<operations['getThread']['parameters']['path']>): Promise<Prettify<operations['getThread']['responses']['200']['content']['application/json']>> {
+    return this._exec<operations['getThread']>('getThread', params) as unknown as Promise<Prettify<operations['getThread']['responses']['200']['content']['application/json']>>;
+  }
+
+  /**
    * Edit an existing message
    */
   editMessage(params: Prettify<operations['editMessage']['parameters']['path']> & Prettify<NonNullable<operations['editMessage']['requestBody']>['content']['application/x-www-form-urlencoded']>): Promise<Prettify<operations['editMessage']['responses']['200']['content']['application/json']>> {
@@ -749,17 +756,17 @@ export default class DiscourseAPIGenerated {
   }
 
   /**
+   * Fetch thread messages
+   */
+  getThreadMessages(params: Prettify<operations['getThreadMessages']['parameters']['path']> & Prettify<operations['getThreadMessages']['parameters']['query']>): Promise<Prettify<operations['getThreadMessages']['responses']['200']['content']['application/json']>> {
+    return this._exec<operations['getThreadMessages']>('getThreadMessages', params) as unknown as Promise<Prettify<operations['getThreadMessages']['responses']['200']['content']['application/json']>>;
+  }
+
+  /**
    * React to a message
    */
   reactToMessage(params: Prettify<operations['reactToMessage']['parameters']['path']> & Prettify<NonNullable<operations['reactToMessage']['requestBody']>['content']['application/x-www-form-urlencoded']>): Promise<Prettify<operations['reactToMessage']['responses']['200']['content']['application/json']>> {
     return this._exec<operations['reactToMessage']>('reactToMessage', params) as unknown as Promise<Prettify<operations['reactToMessage']['responses']['200']['content']['application/json']>>;
-  }
-
-  /**
-   * Get thread details
-   */
-  getThread(params: Prettify<operations['getThread']['parameters']['path']>): Promise<Prettify<operations['getThread']['responses']['200']['content']['application/json']>> {
-    return this._exec<operations['getThread']>('getThread', params) as unknown as Promise<Prettify<operations['getThread']['responses']['200']['content']['application/json']>>;
   }
 
   /**

@@ -7151,8 +7151,8 @@ export interface operations {
                     /** @example hello world */
                     message?: string;
                     staged_id?: string | null;
-                    in_reply_to_id?: string | null;
-                    thread_id?: string | null;
+                    in_reply_to_id?: number | null;
+                    thread_id?: number | null;
                 };
             };
         };

@@ -17109,11 +17109,11 @@
                     "nullable": true
                   },
                   "in_reply_to_id": {
-                    "type": "string",
+                    "type": "integer",
                     "nullable": true
                   },
                   "thread_id": {
-                    "type": "string",
+                    "type": "integer",
                     "nullable": true
                   }
                 }

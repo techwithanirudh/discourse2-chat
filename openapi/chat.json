@@ -120,6 +120,12 @@
             "name": "page_size",
             "in": "query",
             "schema": { "type": "integer", "example": 50 }
+          },
+          {
+            "name": "target_message_id",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "example": 1234 }
           }
         ],
         "responses": {

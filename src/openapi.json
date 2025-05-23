@@ -17107,6 +17107,14 @@
                   "staged_id": {
                     "type": "string",
                     "nullable": true
+                  },
+                  "in_reply_to_id": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "thread_id": {
+                    "type": "string",
+                    "nullable": true
                   }
                 }
               }

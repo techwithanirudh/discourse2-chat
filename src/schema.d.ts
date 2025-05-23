@@ -7142,6 +7142,7 @@ export interface operations {
             header?: never;
             path: {
                 channel_id: number;
+                target_message_id: number;
             };
             cookie?: never;
         };

@@ -756,6 +756,13 @@ export default class DiscourseAPIGenerated {
   }
 
   /**
+   * Get thread details
+   */
+  getThread(params: Prettify<operations['getThread']['parameters']['path']>): Promise<Prettify<operations['getThread']['responses']['200']['content']['application/json']>> {
+    return this._exec<operations['getThread']>('getThread', params) as unknown as Promise<Prettify<operations['getThread']['responses']['200']['content']['application/json']>>;
+  }
+
+  /**
    * Fetch a user card
    */
   getUserCard(params: Prettify<operations['getUserCard']['parameters']['path']>): Promise<Prettify<operations['getUserCard']['responses']['200']['content']['application/json']>> {

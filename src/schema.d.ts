@@ -1456,6 +1456,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/chat/api/channels/{channel_id}/threads/{thread_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get thread details */
+        get: operations["getThread"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/u/{username}/card.json": {
         parameters: {
             query?: never;
@@ -7270,6 +7287,55 @@ export interface operations {
                 content: {
                     "application/json": {
                         success?: string;
+                    };
+                };
+            };
+        };
+    };
+    getThread: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                channel_id: number;
+                thread_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Thread info */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        thread?: {
+                            id?: number | null;
+                            title?: string | null;
+                            status?: string | null;
+                            channel_id?: number | null;
+                            meta?: {
+                                [key: string]: unknown;
+                            };
+                            reply_count?: number | null;
+                            current_user_membership?: {
+                                [key: string]: unknown;
+                            };
+                            preview?: {
+                                [key: string]: unknown;
+                            };
+                            last_message_id?: number | null;
+                            force?: boolean | null;
+                            original_message?: {
+                                [key: string]: unknown;
+                            };
+                        } & {
+                            [key: string]: unknown;
+                        };
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };

@@ -7142,7 +7142,6 @@ export interface operations {
             header?: never;
             path: {
                 channel_id: number;
-                target_message_id: number;
             };
             cookie?: never;
         };
@@ -7205,9 +7204,10 @@ export interface operations {
     };
     getMessages: {
         parameters: {
-            query?: {
+            query: {
                 fetch_from_last_read?: boolean;
                 page_size?: number;
+                target_message_id: number;
             };
             header?: never;
             path: {

@@ -17092,15 +17092,6 @@
               "type": "integer",
               "example": 23
             }
-          },
-          {
-            "name": "target_message_id",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "example": 23
-            }
           }
         ],
         "requestBody": {
@@ -17239,6 +17230,15 @@
             "schema": {
               "type": "integer",
               "example": 50
+            }
+          },
+          {
+            "name": "target_message_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 23
             }
           }
         ],
